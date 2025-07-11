@@ -39,33 +39,47 @@ export function initRowHandlers(row, ev) {
       const ok = await saveIfEditing();
       if (!ok) return;
     }
+
     setEditing(row);
-    row.children[0].innerHTML = `<input type="text" value="${ev.eventName}">`;
-    row.children[1].innerHTML = `<input type="date" value="${ev.startDate}">`;
-    row.children[2].innerHTML = `<input type="date" value="${ev.endDate}">`;
-    edit.style.display = "none";
-    save.style.display = "inline-block";
-  };
 
-  save.onclick = async () => {
-    const name = row.children[0].querySelector("input").value.trim();
-    const start = row.children[1].querySelector("input").value;
-    const end = row.children[2].querySelector("input").value;
+    row.innerHTML = `
+      <td><input type="text" value="${ev.eventName}"></td>
+      <td><input type="date" value="${ev.startDate}"></td>
+      <td><input type="date" value="${ev.endDate}"></td>
+      <td>
+        <button class="save-btn"><i class="fas fa-check"></i></button>
+        <button class="cancel-btn"><i class="fas fa-times"></i></button>
+      </td>
+    `;
 
-    if (!name || !start || !end) {
-      alert("All fields are required.");
-      return;
-    }
+    row.querySelector(".save-btn").onclick = async () => {
+      const name = row.children[0].querySelector("input").value.trim();
+      const start = row.children[1].querySelector("input").value;
+      const end = row.children[2].querySelector("input").value;
 
-    const updated = {
-      eventName: name,
-      startDate: start,
-      endDate: end,
+      if (!name || !start || !end) {
+        alert("All fields are required.");
+        return;
+      }
+
+      const updated = {
+        eventName: name,
+        startDate: start,
+        endDate: end,
+      };
+
+      await updateEvent(ev.id, updated);
+      row.innerHTML = getRow({ ...ev, ...updated });
+      initRowHandlers(row, { ...ev, ...updated });
+      cancelEditing();
     };
 
-    await updateEvent(ev.id, updated);
-    row.innerHTML = getRow({ ...ev, ...updated });
-    initRowHandlers(row, { ...ev, ...updated });
-    cancelEditing();
+    row.querySelector(".cancel-btn").onclick = () => {
+      row.innerHTML = getRow(ev);
+      initRowHandlers(row, ev);
+      cancelEditing();
+    };
   };
+
+  save.onclick = async () => {};
 }
