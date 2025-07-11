@@ -1,6 +1,6 @@
 import { delEvent, updateEvent } from "./api.js";
-import { editing, setEditing, cancelEditing } from "./state.js";
-import { saveIfEditing } from "./utils.js";
+// import { editing, setEditing, cancelEditing } from "./state.js";
+// import { saveIfEditing } from "./utils.js";
 
 export function renderEvents(events) {
   const table = document.getElementById("event-table");
@@ -11,6 +11,7 @@ export function renderEvents(events) {
     row.innerHTML = getRow(ev);
     table.appendChild(row);
     initRowHandlers(row, ev);
+    console.log("Rendering");
   });
 }
 
@@ -18,9 +19,9 @@ function getRow(ev) {
   return `
   <td>${ev.eventName}</td><td>${ev.startDate}</td><td>${ev.endDate}</td>
   <td>
-    <button class="edit-btn"><i class="fas fa-pen"></i></button>
-    <button class="save-btn" style="display:none"><i class="fas fa-check"></i></button>
-    <button class="del-btn"><i class="fas fa-trash"></i></button>
+    <button type="button" class="edit-btn"><i class="fas fa-pen"></i></button>
+    <button type="button" class="save-btn" style="display:none"><i class="fas fa-check"></i></button>
+    <button type="button" class="del-btn"><i class="fas fa-trash"></i></button>
   </td>`;
 }
 
@@ -35,20 +36,19 @@ export function initRowHandlers(row, ev) {
   };
 
   edit.onclick = async () => {
-    if (editing && editing !== row) {
-      const ok = await saveIfEditing();
-      if (!ok) return;
-    }
-
-    setEditing(row);
+    // if (editing && editing !== row) {
+    //   const ok = await saveIfEditing();
+    //   if (!ok) return;
+    // }
+    // setEditing(row);
 
     row.innerHTML = `
       <td><input type="text" value="${ev.eventName}"></td>
       <td><input type="date" value="${ev.startDate}"></td>
       <td><input type="date" value="${ev.endDate}"></td>
       <td>
-        <button class="save-btn"><i class="fas fa-check"></i></button>
-        <button class="cancel-btn"><i class="fas fa-times"></i></button>
+        <button type="button" class="save-btn"><i class="fas fa-check"></i></button>
+        <button type="button" class="cancel-btn"><i class="fas fa-times"></i></button>
       </td>
     `;
 
@@ -71,13 +71,13 @@ export function initRowHandlers(row, ev) {
       await updateEvent(ev.id, updated);
       row.innerHTML = getRow({ ...ev, ...updated });
       initRowHandlers(row, { ...ev, ...updated });
-      cancelEditing();
+      // cancelEditing();
     };
 
     row.querySelector(".cancel-btn").onclick = () => {
       row.innerHTML = getRow(ev);
       initRowHandlers(row, ev);
-      cancelEditing();
+      // cancelEditing();
     };
   };
 
