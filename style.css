@@ -1,0 +1,114 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #ffffff;
+  margin: 30px;
+  padding: 0;
+  color: #383838;
+  text-align: center;
+}
+
+#add-btn {
+  background-color: #0099cc;
+  color: #ffffff;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+#add-btn:hover {
+  background-color: #0077aa;
+}
+
+table {
+  margin: 0 auto;
+  border-collapse: collapse;
+  width: 80%;
+  border: 1px solid #cbcbcb;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #f0f0f0;
+}
+
+th,
+td {
+  padding: 15px;
+  text-align: center;
+  background-color: #e6e2d3;
+  border-bottom: 1px solid #cbcbcb;
+}
+
+th {
+  background-color: #ffffff;
+  font-weight: bold;
+  font-size: 16px;
+  text-align: center;
+}
+
+td button {
+  margin-right: 6px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+}
+
+.edit-btn,
+.create-btn {
+  background-color: #008cba;
+}
+
+.edit-btn:hover,
+.create-btn:hover {
+  background-color: #0077aa;
+}
+
+.save-btn {
+  background-color: #4caf50;
+}
+
+.save-btn:hover {
+  background-color: #388e3c;
+}
+
+.del-btn {
+  background-color: #e74c3c;
+}
+
+.del-btn:hover {
+  background-color: #8c1407;
+}
+
+.create-btn {
+  background-color: #0099cc;
+}
+
+.create-btn:hover {
+  background-color: #055c82;
+}
+
+.cancel-btn,
+.del-btn {
+  background-color: #c94c4c;
+}
+
+.cancel-btn:hover,
+.del-btn:hover {
+  background-color: #a93b3b;
+}
+
+input[type="text"],
+input[type="date"] {
+  width: 100%;
+  padding: 6px;
+  border: 1px solid #c4c3c3;
+  border-radius: 4px;
+}
